@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Switch, Route, Redirect, useHistory } from 'react-router-dom';
+import { Switch, Route, useHistory } from 'react-router-dom';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
