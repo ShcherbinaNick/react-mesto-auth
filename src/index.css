@@ -5,6 +5,9 @@
 
 @import url(./blocks/header/header.css);
 @import url(./blocks/header/__logo/header__logo.css);
+@import url(./blocks/header/__link/header__link.css);
+@import url(./blocks/header/__info/header__info.css);
+@import url(./blocks/header/__email/header__email.css);
 
 @import url(./blocks/content/content.css);
 
@@ -59,3 +62,19 @@
 @import url(./blocks/popup/__figure-image/popup__figure-image.css);
 @import url(./blocks/popup/__figure-title/popup__figure-title.css);
 @import url(./blocks/cards-template/cards-template.css);
+
+@import url(./blocks/auth/auth.css);
+@import url(./blocks/auth/__fieldset/auth__fieldset.css);
+@import url(./blocks/auth/__input/auth__input.css);
+@import url(./blocks/auth/__button/auth__button.css);
+@import url(./blocks/auth/__container/auth__container.css);
+@import url(./blocks/auth/__title/auth__title.css);
+@import url(./blocks/auth/__input-error/auth__input-error.css);
+@import url(./blocks/auth/__link/auth__link.css);
+
+@import url(./blocks/tootlip/tooltip.css);
+@import url(./blocks/tootlip/__active/tooltip__active.css);
+@import url(./blocks/tootlip/__container/tooltip__container.css);
+@import url(./blocks/tootlip/__icon/tooltip__icon.css);
+@import url(./blocks/tootlip/__message/tooltip__message.css);
+@import url(./blocks/tootlip/__close-button/tooltip__close-button.css);

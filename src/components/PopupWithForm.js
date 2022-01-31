@@ -24,9 +24,6 @@ function PopupWithForm({ name, title, buttonText="Сохранить", children,
 
   }, [ isOpen, onClose ])
   
-  // Спасибо за замечания, беру в работу. Также мне хочется исправить положение кнопки, как это было в приложении без реакта, но на данный момент
-  // поджимает дедлайн, поэтому я пока просто удалю.
-  
   return (
     <>
       <article className={`popup popup_type_${ name } ${isOpen ? "popup_active" : "" }` }>
