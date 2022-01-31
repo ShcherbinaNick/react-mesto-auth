@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "./static/css/main.07bac66b.css",
-    "main.js": "./static/js/main.d8365045.js",
+    "main.css": "./static/css/main.27bd9ec6.css",
+    "main.js": "./static/js/main.5df8ba5d.js",
     "static/js/787.11150396.chunk.js": "./static/js/787.11150396.chunk.js",
     "static/media/Inter-Medium.woff2": "./static/media/Inter-Medium.01f03178adde434fc9fa.woff2",
     "static/media/Inter-Black.woff2": "./static/media/Inter-Black.15ca31c0a2a68f76d2d1.woff2",
@@ -11,16 +11,18 @@
     "static/media/Vector.svg": "./static/media/Vector.1ad06e85f169668a1f36.svg",
     "index.html": "./index.html",
     "static/media/Trash.svg": "./static/media/Trash.e3c42771bff3aaa52f76.svg",
+    "static/media/fail.svg": "./static/media/fail.d4ce2a261b68c6da973d51ef98afae1a.svg",
+    "static/media/success.svg": "./static/media/success.a9eb6caf1da3ff48b215fb1dd9477d74.svg",
     "static/media/Union.svg": "./static/media/Union.dd6a61e81552be95f4b7.svg",
     "static/media/Close-Icon.svg": "./static/media/Close-Icon.973e77374abfb705de40.svg",
     "static/media/Add-Button.svg": "./static/media/Add-Button.8e041299935e2fbbe15e.svg",
     "static/media/Edit-Button.svg": "./static/media/Edit-Button.af236f6cf67005f1d7aa.svg",
-    "main.07bac66b.css.map": "./static/css/main.07bac66b.css.map",
-    "main.d8365045.js.map": "./static/js/main.d8365045.js.map",
+    "main.27bd9ec6.css.map": "./static/css/main.27bd9ec6.css.map",
+    "main.5df8ba5d.js.map": "./static/js/main.5df8ba5d.js.map",
     "787.11150396.chunk.js.map": "./static/js/787.11150396.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.07bac66b.css",
-    "static/js/main.d8365045.js"
+    "static/css/main.27bd9ec6.css",
+    "static/js/main.5df8ba5d.js"
   ]
 }
