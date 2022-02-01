@@ -19,14 +19,18 @@ function AddPlacePopup({ isOpen, onClose, onAddplaceSubmit }) {
       name: cardName,
       link: cardImgLink
     })
-
   }
+
+  React.useEffect(() => {
+      setCardName('')
+      setCardImgLink('')
+  }, [isOpen] );
 
   return (
     <PopupWithForm name="new-card" title="Новое место" isOpen={ isOpen } onClose={ onClose } onSubmit={ handleSubmit } >
-    <input onChange={ handleCardNameChange } type="text" name="card-input-name" className="popup__input popup__input_field_card " id="field_card" placeholder="Название" minLength="2" maxLength="30" required />
+    <input value={ cardName || "" } onChange={ handleCardNameChange } type="text" name="card-input-name" className="popup__input popup__input_field_card " id="field_card" placeholder="Название" minLength="2" maxLength="30" required />
     <span className="popup__input-error popup__input-error_field_card"></span>
-    <input onChange={ handleCardImgLinkChange } type="url" name="card-input-link" className="popup__input popup__input_field_link " id="field_link" placeholder="Ссылка на картинку" required />
+    <input value={ cardImgLink || "" } onChange={ handleCardImgLinkChange } type="url" name="card-input-link" className="popup__input popup__input_field_link " id="field_link" placeholder="Ссылка на картинку" required />
     <span className="popup__input-error popup__input-error_field_link"></span>
     </PopupWithForm>
   )

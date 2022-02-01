@@ -36,7 +36,9 @@ function Card({ cardData, onCardClick, onCardLike, onCardDelete }) {
   return (
     <li className="card">
       <div className="card__image-container">
-        <img src={ link } alt={`карточка с названием ${ name }`} className="card__image" onClick={ handleCardClick }/>
+        <div className="card__image-wrap">
+          <img src={ link } alt={`карточка с названием ${ name }`} className="card__image" onClick={ handleCardClick }/>
+        </div>
       </div>
       <button type="button" aria-label="удалить" className={ cardDeleteButtonClassName } onClick={ handleCardDelete }></button>
       <div className="card__text">

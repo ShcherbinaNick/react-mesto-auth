@@ -11,7 +11,7 @@ const Register = ({ onSubmit }) => {
             Регистрация
           </h2>
           <AuthForm buttonText="Зарегистрироваться" onSubmit={ onSubmit } />
-          <Link className="auth__link" to="/sign-in">Уже зарегистрированы? Войти</Link>
+          <p className="auth__register">Уже зарегистрированы?<Link className="auth__link" to="/sign-in">&nbsp;Войти</Link></p>
         </section>
       </main>
   )
