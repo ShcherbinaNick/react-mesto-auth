@@ -3,7 +3,6 @@ import { Switch, Route, useHistory } from 'react-router-dom';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
-import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import api from '../utils/Api';
@@ -14,7 +13,7 @@ import Login from './Login';
 import Register from './Register';
 import ProtectedRoute from './ProtectedRoute';
 import InfoTooltip from './InfoTooltip';
-import * as Auth from '../Auth';
+import * as auth from '../utils/auth';
 
 function App() {
 
@@ -39,15 +38,19 @@ function App() {
     'cohort': '',
     'email': ''
   });
-  const [userEmail, setUserEmail] = React.useState("")
+
+  const [ userEmail, setUserEmail ] = React.useState("")
 
   const handleRegistration = (values) => {
-    Auth.register(values)
+    auth.register(values)
     .then((res) => {
-      setIsSignUpSuccessful(true)
-      setIsInfoTooltipOpen(true)
-      history.push("/sign-in")
-      console.log(res)
+      if (res.data._id) {
+        setIsSignUpSuccessful(true)
+        setIsInfoTooltipOpen(true)
+        history.push("/sign-in")
+      } else {
+        setIsInfoTooltipOpen(true)
+      }
     })
     .catch((err) => {
       setIsSignUpSuccessful(false)
@@ -57,32 +60,40 @@ function App() {
   }
 
   const handleLogin = (values) => {
-    Auth.login(values)
+    auth.login(values)
     .then((res) => {
-      localStorage.setItem('jwt', res.token)
-      setIsLoggedIn(true)
-      history.push("/")
-      })
+      if (res.token) {
+        localStorage.setItem('jwt', res.token)
+        setIsLoggedIn(true)
+        history.push("/")
+        setUserEmail(values.email)
+      } else {
+        setIsInfoTooltipOpen(true)
+      }
+    })
     .catch((err) => {
-    console.log(err)
+      console.log(err)
+      setIsInfoTooltipOpen(true)
     })
   }
 
   const tokenCheck = () => {
-    if (localStorage.getItem('jwt')) {
-      const jwt = localStorage.getItem('jwt')
+    const jwt = localStorage.getItem('jwt')
       if (jwt) {
-        Auth.getContent(jwt)
+        auth.getContent(jwt)
       .then((res) => {
-        setIsLoggedIn(true)
-        history.push("/")
-        setUserEmail(res.data.email)
+        if (res) {
+          setIsLoggedIn(true)
+          history.push("/")
+          setUserEmail(res.data.email)
+        } else {
+          localStorage.removeItem('jwt')
+        }
       })
       .catch((err) => {
         console.log(err)
       })   
       }
-    }
   }
 
   const handleCardLike = (card) => {
@@ -112,23 +123,37 @@ function App() {
       })
       .catch(err => console.log(err))
   }
-  
-  
+
   useEffect(() => {
-    api.getUserInfo()
-      .then(res => setCurrentUser(res))
-      .catch(err => console.log(err))
-  }, [])
-  
-  useEffect(() => {
-    tokenCheck()
-    api.getInitialCards()
-      .then((places) => {
-        setCards(places)
+    tokenCheck();
+    Promise.all([ api.getUserInfo(), api.getInitialCards() ])
+      .then(([ user, newCards ]) => {
+        setCurrentUser(user);
+        setCards(newCards);
       })
       .catch(err => console.log(err))
   }, [])
+
+  const closeAllPopups = () => {
+    setIsEditAvatarPopupOpen(false);
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setSelectedCard({ name: '', link: ''});
+    setIsInfoTooltipOpen(false);
+  }
   
+  useEffect(() => {
+    const handleEscClose = e => {
+      if (e.key === "Escape") {
+        closeAllPopups()
+      }
+    }
+    window.addEventListener("keydown", handleEscClose)
+    return () => {
+      window.removeEventListener("keydown", handleEscClose)
+    }
+
+  }, [ isEditProfilePopupOpen, isAddPlacePopupOpen, isEditAvatarPopupOpen, isInfoTooltipOpen, closeAllPopups ])
 
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen)
@@ -146,13 +171,6 @@ function App() {
     setSelectedCard(cardData)
   }
 
-  const closeAllPopups = () => {
-    setIsEditAvatarPopupOpen(false);
-    setIsEditProfilePopupOpen(false);
-    setIsAddPlacePopupOpen(false);
-    setSelectedCard({ name: '', link: ''});
-    setIsInfoTooltipOpen(false);
-  }
 
   const handleUpdateUser = (newUserInfo) => {
     api.setUserInfo(newUserInfo)
@@ -176,7 +194,7 @@ function App() {
     <CurrentUserContext.Provider value={ currentUser }>
       <div className="App">
         <div className="page">
-          <Header onLogOut={ setIsLoggedIn } userEmail={userEmail}/>
+          <Header onLogOut={ setIsLoggedIn } userEmail={ userEmail }/>
             <Switch>
               <ProtectedRoute 
                 exact path="/" 
@@ -200,8 +218,6 @@ function App() {
           <Footer />
           <EditAvatarPopup isOpen={ isEditAvatarPopupOpen } onClose={ closeAllPopups } onUpdateAvatar={ handleUpdateAvatar } />
           <EditProfilePopup isOpen={ isEditProfilePopupOpen } onClose={ closeAllPopups } onUpdateUser={ handleUpdateUser } />
-          <PopupWithForm name="card_delete" title="Вы уверены?" buttonText="Да">
-          </PopupWithForm >
           <AddPlacePopup isOpen={ isAddPlacePopupOpen } onClose={ closeAllPopups }  onAddplaceSubmit={ handleAddPlaceSubmit }/>
           <ImagePopup onClose={ closeAllPopups } card={ selectedCard }/>
           <InfoTooltip isOpen={ isInfoTooltipOpen } onClose={ closeAllPopups } isSuccess={ isSignUpSuccessful } />
