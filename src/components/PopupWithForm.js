@@ -1,5 +1,13 @@
 function PopupWithForm({ name, title, buttonText="Сохранить", children, isOpen, onClose, onSubmit, overlayClose}) {
   
+  function handleClickOverlay(e) {
+    if (isOpen) {
+      if(e.target.classList.contains('popup')) {
+       onClose()
+    }
+    }
+  }
+  
   return (
     <>
       <article className={`popup popup_type_${ name } ${isOpen ? "popup_active" : "" }` } onClick={ overlayClose }>
