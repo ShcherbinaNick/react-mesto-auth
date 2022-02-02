@@ -2,12 +2,6 @@ function ImagePopup(props) {
   const { card, onClose, overlayClose } = props
   const { link, name } = card
 
-  function handleClickOverlay(e) {
-      if(e.target.classList.contains('popup')) {
-       onClose()
-      }
-  }
-
   return (
     <article className={ `popup popup_type_image ${ card.link !== '' ? "popup_active" : "" }` } onClick={ overlayClose }>
       <figure className="popup__figure">
