@@ -15,5 +15,3 @@ function PopupWithForm({ name, title, buttonText="Сохранить", children,
 }
 
 export default PopupWithForm;
-
-
