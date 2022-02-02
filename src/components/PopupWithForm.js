@@ -1,4 +1,4 @@
-function PopupWithForm({ name, title, buttonText="Сохранить", children, isOpen, onClose, onSubmit }) {
+function PopupWithForm({ name, title, buttonText="Сохранить", children, isOpen, onClose, onSubmit, overlayClose}) {
   
   function handleClickOverlay(e) {
     if (isOpen) {
@@ -10,7 +10,7 @@ function PopupWithForm({ name, title, buttonText="Сохранить", children,
   
   return (
     <>
-      <article className={`popup popup_type_${ name } ${isOpen ? "popup_active" : "" }` } onClick={ handleClickOverlay }>
+      <article className={`popup popup_type_${ name } ${isOpen ? "popup_active" : "" }` } onClick={ overlayClose }>
         <form onSubmit={ onSubmit } className="popup__container" name={` ${ name }-form`}>
           <button type="button" aria-label="закрыть" className="popup__close-button" onClick={ onClose }></button>
           <h2 className="popup__title">{ title }</h2>

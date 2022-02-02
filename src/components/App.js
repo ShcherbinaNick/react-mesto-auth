@@ -155,6 +155,12 @@ function App() {
 
   }, [ isEditProfilePopupOpen, isAddPlacePopupOpen, isEditAvatarPopupOpen, isInfoTooltipOpen, closeAllPopups ])
 
+  function handleClickOverlay(evt) {
+    if (evt.target.classList.contains('popup')) {
+      closeAllPopups()
+    }
+  }
+
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen)
   }
@@ -216,10 +222,10 @@ function App() {
               </Route>
             </Switch>
           <Footer />
-          <EditAvatarPopup isOpen={ isEditAvatarPopupOpen } onClose={ closeAllPopups } onUpdateAvatar={ handleUpdateAvatar } />
-          <EditProfilePopup isOpen={ isEditProfilePopupOpen } onClose={ closeAllPopups } onUpdateUser={ handleUpdateUser } />
-          <AddPlacePopup isOpen={ isAddPlacePopupOpen } onClose={ closeAllPopups }  onAddplaceSubmit={ handleAddPlaceSubmit }/>
-          <ImagePopup onClose={ closeAllPopups } card={ selectedCard }/>
+          <EditAvatarPopup isOpen={ isEditAvatarPopupOpen } onClose={ closeAllPopups } overlayClose={ handleClickOverlay } onUpdateAvatar={ handleUpdateAvatar } />
+          <EditProfilePopup isOpen={ isEditProfilePopupOpen } onClose={ closeAllPopups } overlayClose={ handleClickOverlay } onUpdateUser={ handleUpdateUser } />
+          <AddPlacePopup isOpen={ isAddPlacePopupOpen } onClose={ closeAllPopups } overlayClose={ handleClickOverlay } onAddplaceSubmit={ handleAddPlaceSubmit }/>
+          <ImagePopup onClose={ closeAllPopups } overlayClose={ handleClickOverlay } card={ selectedCard }/>
           <InfoTooltip isOpen={ isInfoTooltipOpen } onClose={ closeAllPopups } isSuccess={ isSignUpSuccessful } />
         </div>
       </div>
